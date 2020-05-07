@@ -1,9 +1,13 @@
 package Search;
 
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+
 public class NewJFrame extends javax.swing.JFrame {
-
+    String resultado="";
+    boolean auxiliar=false;
     Graph graph = new Graph(6);
-
+    int contador=1;
     public NewJFrame() {
         initComponents();
 
@@ -26,14 +30,22 @@ public class NewJFrame extends javax.swing.JFrame {
 
         // nodos adyacentes de E
         graph.addEdge(4, 5);
-
+         Imagen img=new Imagen();
+    img.nombre="arbol";
+     jPanel2.add(img);
+     jPanel2.repaint();
+    String aux=(graph.bfs().toString());
+     resultado=aux.replace(",", "");
+     resultado=resultado.replace("[", "");
+     resultado=resultado.replace("]", "");
+     resultado=resultado.replace(" ", "");
+        System.out.println(resultado);
     }
-
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         label2 = new java.awt.Label();
         jPanel3 = new javax.swing.JPanel();
@@ -41,6 +53,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         JL_Resultado = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -48,8 +61,6 @@ public class NewJFrame extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(900, 590));
         setResizable(false);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Search/arbol.png"))); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(69, 91, 193));
         jPanel1.setForeground(new java.awt.Color(69, 91, 193));
@@ -149,6 +160,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 405, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,9 +179,9 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
@@ -170,9 +192,9 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,19 +202,58 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (evt.getSource() == jButton1) JL_Resultado.setText((graph.bfs().toString()));
+       // if (evt.getSource() == jButton1) JL_Resultado.setText((graph.bfs().toString()));
+       
+         Imagen img=new Imagen();
+    img.nombre="arbol"+String.valueOf(contador);
+        jPanel2.removeAll();
+     jPanel2.add(img);
+     jPanel2.repaint();
+     
+          JL_Resultado.setText(JL_Resultado.getText()+String.valueOf(resultado.charAt(contador-1)+", "));
+     if(contador==6&&auxiliar==false){
+         JL_Resultado.setText("["+JL_Resultado.getText()+"]");
+         auxiliar=true;
+     }
+     if(contador!=6){
+         
+          contador++;
+     }
+        System.out.println(contador);
+     
+    
     }//GEN-LAST:event_jButton1ActionPerformed
+public class Imagen extends javax.swing.JPanel {
+ String nombre;
+public Imagen() {
+this.setSize(jPanel2.getWidth(), jPanel2.getHeight()); //se selecciona el tamaño del panel
+}
+ 
+public void paint(Graphics grafico) {
 
+ImageIcon Img = new ImageIcon(getClass().getResource(nombre+".png")); 
 
+grafico.drawImage(Img.getImage(), 0, 0, jPanel2.getWidth(), jPanel2.getHeight(), null);
+ 
+setOpaque(false);
+super.paintComponent(grafico);
+}
+}
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel JL_Resultado;
+    public javax.swing.JLabel JL_Resultado;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private java.awt.Label label2;
+    private javax.swing.JPanel punto1;
+    private javax.swing.JPanel punto2;
     // End of variables declaration//GEN-END:variables
 }
