@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 import javax.swing.DefaultListModel;
 
 public class Graph {
@@ -38,31 +39,13 @@ public class Graph {
             }            
         }
         return -1;
-    }
+    }                
     
-    public DefaultListModel bfs(){                   
-        DefaultListModel model = new DefaultListModel();                     
-        model.addElement(vertexList[0].label);
-        q.add(0);        
-        int v2;
+    public Stack bfs(){
+        Stack nodo = new Stack();
+        nodo.add(vertexList[0].label); 
         
-        while(!q.isEmpty()) {
-            int v1 = q.remove();
-            while((v2 = getAdjacencyMatrix(v1))!= -1){
-                vertexList[v2].visited = true;                                
-                model.addElement(vertexList[v2].label);
-                q.add(v2);                                   
-            }            
-        }  
-        System.out.println(model);
-        System.out.println("se supone que este modelo debe ir en la lista de la "
-                + "/n pantalla al presionar el boton pero solo se imprime");
-        return model;
-    }        
-    
-    public void bfsa(){
-        vertexList[0].visited = true;
-        displayVertex(0);
+        vertexList[0].visited = true;        
         q.add(0);        
         int v2;
         
@@ -72,6 +55,7 @@ public class Graph {
                 vertexList[v2].visited = true;
                 System.out.println("V2= " + v2);
                 displayVertex(v2);
+                nodo.add(vertexList[v2].label); 
                 q.add(v2);
             }
         }
@@ -81,6 +65,7 @@ public class Graph {
                 System.out.print( adjacencyMat[i][j]+" ");
             }
             System.out.println("");
-        }                
+        }                         
+        return nodo;
     }
 }

@@ -8,8 +8,7 @@ public class BreadthSearch {
             public void run() {
                 new NewJFrame().setVisible(true);
             }
-        });
-        
+        });        
         
         //static case
         Graph graph = new Graph(6);
